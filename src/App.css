@@ -1,10 +1,18 @@
 
-.App{
-  width: 100vw;
-  height: 100vh;
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-size: 'Lato', sans-serif;
+
 }
 
-body{
-  margin: 0;
-  padding: 0;
+.projects , .settings {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    height: 90vh;
+    font-size: 3rem;
 }

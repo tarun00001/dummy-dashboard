@@ -1,52 +1,46 @@
 import React from 'react'
-import {AppBar, Tabs, Tab,Toolbar,IconButton,Box} from '@material-ui/core'
-import MenuIcon from '@material-ui/icons/Menu'
-import Typography from '@material-ui/core/Typography'
-import TabPanel from './TabPanel'
+import * as FaIcons from "react-icons/fa";
+import * as AiIcons from "react-icons/ai";
+import {Link} from 'react-router-dom'
+import { SidebarMenu } from './SidebarMenu';
+import './Navbar.css'
+import { IconContext } from 'react-icons';
 
-
- const Nav = () => {
-     
-    const [value, setValue] = React.useState(0);
-    const handleChange = (_, newValue) => setValue(newValue);
-
+const Navbar = () => {
+    const [sidebar,setSidebar] = React.useState(false)
+    
+    const showSidebar = () => (setSidebar(!sidebar))
+    
     return (
         <>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton size="large" edge="start" color="inherit" sx={{ mr: 2 }}>
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ display: { xs: "none", sm: "block" } }}
-            >
-              MUI
-            </Typography>
-            <Box flexGrow={1} />
-            <Tabs value={value} onChange={handleChange} textColor="inherit">
-              <Tab label="One" />
-              <Tab label="Two" />
-              <Tab label="Three" />
-            </Tabs>
-          </Toolbar>
-        </AppBar>
-        <div index={value} onChangeIndex={setValue}>
-          <TabPanel value={value} index={0}>
-            Item One
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            Item Two
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            Item Three
-          </TabPanel>
-        </div>
-      </>
+        <IconContext.Provider value={{color: '#fff'}}>
+          <div className="navbar">
+            <Link to="#" className='menu-bars'>
+                <FaIcons.FaBars onClick={showSidebar}/>
+            </Link>
+            </div>  
+            <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
+                <ul className="nav-menu-items"  onClick={showSidebar}>
+                    <li className="navbar-toggle">
+                        <Link to="#" className='menu-bars'>
+                            <AiIcons.AiOutlineClose/>
+                        </Link>
+                    </li>
+                    {SidebarMenu.map((item, index) => {
+                        return(
+                            <li key={index} className={item.cName}>
+                                <Link to={item.path}>
+                                    {item.icon}
+                                    <span>{item.title}</span>
+                                </Link>
+                            </li>
+                        )
+                    })}
+                </ul>
+            </nav>
+            </IconContext.Provider>
+        </>
     )
-  }
+}
 
-
-export default Nav
+export default Navbar
